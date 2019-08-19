@@ -1,4 +1,4 @@
-function hello(compiler: string) {
-    console.log(`Hello from ${compiler}`);
-}
-hello('TypeScript');
+import { App } from './App';
+
+const app = new App();
+app.hello("Typescript");
