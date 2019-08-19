@@ -4,7 +4,10 @@ import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
 
 // @ts-ignore
 import {DRACOLoader} from "three/examples/jsm/loaders/DRACOLoader";
-import {BufferGeometry, Vector3} from "three";
+import {BufferGeometry} from "three";
+
+let Stats = require('three/examples/jsm/libs/stats.module.js');
+//import {Stats} from "three/examples/jsm/libs/stats.module.js"
 
 
 export class App {
@@ -14,6 +17,7 @@ export class App {
     private readonly scene = new THREE.Scene();
     private readonly camera = new THREE.PerspectiveCamera(45, innerWidth / innerHeight, 0.1, 10000);
     private readonly controls = new OrbitControls(this.camera, this.renderer.domElement);
+    private readonly stats = Stats.default();
 
     private brick: THREE.Mesh;
 
@@ -31,7 +35,7 @@ export class App {
 
         DRACOLoader.setDecoderPath('libs/draco/');
         let loader = new DRACOLoader();
-        loader.load("assets/cloud.drc", (geometry: BufferGeometry) => {
+        loader.load("assets/river.drc", (geometry: BufferGeometry) => {
             let material = new THREE.PointsMaterial( { color: 0xFFFFFF, size: 0.01 } );
             let pcl = new THREE.Points(geometry, material);
             pcl.scale.set(10.0, 10.0, 10.0);
@@ -39,6 +43,10 @@ export class App {
             this.scene.add(pcl);
             console.log("pcl loaded!");
         });
+
+        // setup stats
+        this.stats.showPanel(0);
+        document.body.appendChild( this.stats.dom );
 
         this.render();
     }
@@ -56,7 +64,9 @@ export class App {
     }
 
     private animate() {
+        this.stats.begin();
         this.controls.update();
         this.render()
+        this.stats.end();
     }
 }
