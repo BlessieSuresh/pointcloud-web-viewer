@@ -19,7 +19,12 @@ var watchedBrowserify = watchify(browserify({
     entries: ['src/main.ts'],
     cache: {},
     packageCache: {}
-}).plugin(tsify));
+})
+  .plugin(tsify)
+  .transform('babelify', {
+        presets: ['env'],
+        extensions: ['.ts']
+    }));
 
 gulp.task('copy-html', function () {
     return gulp.src(paths.pages)
