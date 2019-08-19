@@ -83,4 +83,6 @@ gulp.task('watch', function() {
     gulp.watch(paths.watch, gulp.series('default'));
 });
 
+gulp.task('develop', gulp.series(gulp.parallel('watch', 'webserver')));
+
 gulp.task('default', gulp.series(gulp.parallel('html', 'libs', 'sass', 'assets', 'js')));

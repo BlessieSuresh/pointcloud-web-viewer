@@ -4,6 +4,6 @@ export class App {
     	console.log(`Hello from ${compiler}`);
 
     	const elt = document.getElementById("greeting");
-    	elt.innerText = `Hello friends, from ${compiler}`;
+    	elt.innerText = `Hello Juan, from ${compiler}`;
 	}
 }
