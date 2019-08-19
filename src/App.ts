@@ -11,7 +11,7 @@ let Stats = require('three/examples/jsm/libs/stats.module.js');
 export class App {
 
     private readonly canvas = <HTMLCanvasElement>document.getElementById("mainCanvas");
-    private readonly renderer = new THREE.WebGLRenderer({ antialias: true, canvas: this.canvas });
+    private readonly renderer = new THREE.WebGLRenderer({antialias: true, canvas: this.canvas});
     private readonly scene = new THREE.Scene();
     private readonly camera = new THREE.PerspectiveCamera(45, innerWidth / innerHeight, 0.1, 10000);
     private readonly controls = new OrbitControls(this.camera, this.renderer.domElement);
@@ -21,10 +21,10 @@ export class App {
 
     public setup() {
         this.camera.position.set(0, 200, 200);
-        this.camera.lookAt(0,0,0);
+        this.camera.lookAt(0, 0, 0);
         this.scene.add(this.camera);
 
-        this.brick = new THREE.Mesh(new THREE.BoxGeometry(20,20,20));
+        this.brick = new THREE.Mesh(new THREE.BoxGeometry(20, 20, 20));
         this.brick.material = new THREE.MeshNormalMaterial();
         this.scene.add(this.brick);
 
@@ -34,7 +34,7 @@ export class App {
         DRACOLoader.setDecoderPath('libs/draco/');
         let loader = new DRACOLoader();
         loader.load("assets/river.drc", (geometry: BufferGeometry) => {
-            let material = new THREE.PointsMaterial( { color: 0xFFFFFF, size: 0.01 } );
+            let material = new THREE.PointsMaterial({color: 0xFFFFFF, size: 0.01});
             let pcl = new THREE.Points(geometry, material);
             pcl.scale.set(10.0, 10.0, 10.0);
             this.scene.remove(this.brick);
@@ -44,7 +44,7 @@ export class App {
 
         // setup stats
         this.stats.showPanel(0);
-        document.body.appendChild( this.stats.dom );
+        document.body.appendChild(this.stats.dom);
 
         this.render();
     }

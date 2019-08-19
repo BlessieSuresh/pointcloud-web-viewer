@@ -15,10 +15,10 @@ var paths = {
         'libs/**/*.*'
     ],
     watch: {
-    	typescript: ['./src/*.ts', './src/**/*.ts'],
-    	html: ['./html/*.html', './html/**/*.html'],
-    	sass: ['./scss/*.scss', './scss/**/*.scss'],
-    	others: ['assets/**/*.*', 'libs/**/*.*']
+        typescript: ['./src/*.ts', './src/**/*.ts'],
+        html: ['./html/*.html', './html/**/*.html'],
+        sass: ['./scss/*.scss', './scss/**/*.scss'],
+        others: ['assets/**/*.*', 'libs/**/*.*']
     },
     assets: [
         'assets/**/*.*'
@@ -43,7 +43,7 @@ gulp.task('assets', function () {
         .pipe(connect.reload());
 });
 
-gulp.task('sass', function(done) {
+gulp.task('sass', function (done) {
     gulp.src('./scss/main.scss')
         .pipe(sass({
             errLogToConsole: true
@@ -77,26 +77,26 @@ gulp.task('compile', function () {
         .bundle()
         .pipe(source('bundle.js'))
         .pipe(buffer())
-	    .pipe(sourcemaps.init({loadMaps: true}))
-	    //.pipe(uglify()) //=> enable for release!
-	    .pipe(sourcemaps.write('./'))
+        .pipe(sourcemaps.init({loadMaps: true}))
+        //.pipe(uglify()) //=> enable for release!
+        .pipe(sourcemaps.write('./'))
         .pipe(gulp.dest('dist'))
         .pipe(connect.reload());
 });
 
 gulp.task('clean', function () {
     return gulp.src('dist/*', {read: false})
-    	.pipe(clean());
+        .pipe(clean());
 });
 
-gulp.task('connect', function() {
-	connect.server({
-    root: 'dist',
-    livereload: true
-  });
+gulp.task('connect', function () {
+    connect.server({
+        root: 'dist',
+        livereload: true
+    });
 });
 
-gulp.task('watch', function() {
+gulp.task('watch', function () {
     gulp.watch(paths.watch.typescript, gulp.series('compile'));
     gulp.watch(paths.watch.html, gulp.series('html'));
     gulp.watch(paths.watch.sass, gulp.series('sass'));
