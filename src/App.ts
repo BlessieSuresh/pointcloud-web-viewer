@@ -17,7 +17,7 @@ export class App {
 
     private brick: THREE.Mesh;
 
-    constructor() {
+    public setup() {
         this.camera.position.set(0, 200, 200);
         this.camera.lookAt(0,0,0);
         this.scene.add(this.camera);
@@ -43,10 +43,6 @@ export class App {
         this.render();
     }
 
-    private async loadDemoAsset() {
-
-    }
-
     private adjustCanvasSize() {
         this.renderer.setSize(innerWidth, innerHeight);
         this.camera.aspect = innerWidth / innerHeight;
@@ -55,12 +51,12 @@ export class App {
 
     private render() {
         this.renderer.render(this.scene, this.camera);
-        requestAnimationFrame(() => {
-            this.controls.update();
-            this.render()
-        });
+        requestAnimationFrame(this.animate.bind(this));
         this.adjustCanvasSize();
+    }
 
-        this.brick.rotateY(0.01);
+    private animate() {
+        this.controls.update();
+        this.render()
     }
 }
