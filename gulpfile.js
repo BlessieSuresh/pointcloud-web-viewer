@@ -13,12 +13,12 @@ var paths = {
     libs: [
         'libs/**/*.*'
     ],
-    watch: [
-        './src/*.ts',
-        './src/**/*.ts',
-        './src/*.html',
-        './scss/*.scss'
-    ],
+    watch: {
+    	typescript: ['./src/*.ts', './src/**/*.ts'],
+    	html: ['./src/*.html'],
+    	sass: ['./scss/*.scss'],
+    	others: ['assets/**/*.*', 'libs/**/*.*']
+    },
     assets: [
         'assets/**/*.*'
     ]
@@ -48,7 +48,7 @@ gulp.task('sass', function(done) {
         .on('end', done);
 });
 
-gulp.task('js', function () {
+gulp.task('compile', function () {
     return browserify({
         basedir: '.',
         debug: true,
@@ -80,9 +80,12 @@ gulp.task('webserver', function() {
 });
 
 gulp.task('watch', function() {
-    gulp.watch(paths.watch, gulp.series('default'));
+    gulp.watch(paths.watch.typescript, gulp.series('compile'));
+    gulp.watch(paths.watch.html, gulp.series('html'));
+    gulp.watch(paths.watch.sass, gulp.series('sass'));
+    gulp.watch(paths.watch.others, gulp.series('assets', 'libs'));
 });
 
 gulp.task('develop', gulp.series(gulp.parallel('watch', 'webserver')));
 
-gulp.task('default', gulp.series(gulp.parallel('html', 'libs', 'sass', 'assets', 'js')));
+gulp.task('default', gulp.series(gulp.parallel('html', 'libs', 'sass', 'assets', 'compile')));
