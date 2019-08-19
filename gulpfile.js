@@ -56,7 +56,7 @@ gulp.task('sass', function(done) {
 gulp.task('compile', function () {
     return browserify({
         basedir: '.',
-        debug: true,
+        debug: false,
         entries: ['src/main.ts'],
         cache: {},
         packageCache: {}
@@ -70,7 +70,7 @@ gulp.task('compile', function () {
         .pipe(source('bundle.js'))
         .pipe(buffer())
 	    .pipe(sourcemaps.init({loadMaps: true}))
-	    .pipe(uglify())
+	    //.pipe(uglify()) //=> enable for release!
 	    .pipe(sourcemaps.write('./'))
         .pipe(gulp.dest('dist'))
         .pipe(connect.reload());
