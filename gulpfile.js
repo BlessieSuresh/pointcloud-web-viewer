@@ -6,6 +6,7 @@ var uglify = require('gulp-uglify');
 var sourcemaps = require('gulp-sourcemaps');
 var buffer = require('vinyl-buffer');
 var sass = require('gulp-sass');
+var webserver = require('gulp-webserver');
 
 var paths = {
     pages: ['src/*.html'],
@@ -38,6 +39,15 @@ gulp.task('assets', function () {
         .pipe(gulp.dest('./dist/assets'));
 });
 
+gulp.task('sass', function(done) {
+    gulp.src('./scss/main.scss')
+        .pipe(sass({
+            errLogToConsole: true
+        }))
+        .pipe(gulp.dest('./dist'))
+        .on('end', done);
+});
+
 gulp.task('js', function () {
     return browserify({
         basedir: '.',
@@ -60,17 +70,17 @@ gulp.task('js', function () {
         .pipe(gulp.dest('dist'));
 });
 
-gulp.task('watch', function() {
-    gulp.watch(paths.watch, gulp.series('default'));
+gulp.task('webserver', function() {
+  gulp.src('dist')
+    .pipe(webserver({
+      livereload: true,
+      directoryListing: false,
+      open: true
+    }));
 });
 
-gulp.task('sass', function(done) {
-    gulp.src('./scss/main.scss')
-        .pipe(sass({
-            errLogToConsole: true
-        }))
-        .pipe(gulp.dest('./dist'))
-        .on('end', done);
+gulp.task('watch', function() {
+    gulp.watch(paths.watch, gulp.series('default'));
 });
 
 gulp.task('default', gulp.series(gulp.parallel('html', 'libs', 'sass', 'assets', 'js')));
