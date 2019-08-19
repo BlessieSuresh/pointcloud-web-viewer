@@ -3,7 +3,8 @@ import * as THREE from 'three';
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
 
 // @ts-ignore
-//import {DRACOLoader} from "three/examples/jsm/loaders/DRACOLoader";
+import {DRACOLoader} from "three/examples/jsm/loaders/DRACOLoader";
+import {BufferGeometry, Vector3} from "three";
 
 
 export class App {
@@ -28,10 +29,22 @@ export class App {
         this.renderer.setSize(innerWidth, innerHeight);
         this.renderer.setClearColor(new THREE.Color("rgb(22,22,22)"));
 
-        //DRACOLoader.setDecoderPath('libs/draco/');
-        //let loader = new DRACOLoader();
+        DRACOLoader.setDecoderPath('libs/draco/');
+        let loader = new DRACOLoader();
+        loader.load("assets/cloud.drc", (geometry: BufferGeometry) => {
+            let material = new THREE.PointsMaterial( { color: 0xFFFFFF, size: 0.01 } );
+            let pcl = new THREE.Points(geometry, material);
+            pcl.scale.set(10.0, 10.0, 10.0);
+            this.scene.remove(this.brick);
+            this.scene.add(pcl);
+            console.log("pcl loaded!");
+        });
 
         this.render();
+    }
+
+    private async loadDemoAsset() {
+
     }
 
     private adjustCanvasSize() {
