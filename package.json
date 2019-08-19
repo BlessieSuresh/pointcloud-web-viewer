@@ -2,23 +2,23 @@
   "name": "pointcloud-web-viewer",
   "version": "1.0.0",
   "description": "A simple and lightweight pointcloud web viewer based on threejs.",
-  "main": "app.ts",
+  "main": "main.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server",
-    "build": "webpack"
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cansik/pointcloud-web-viewer.git"
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "@types/three": "0.92.13",
-    "three": "0.94.0",
-    "ts-loader": "4.4.2",
-    "typescript": "2.9.2"
+  "bugs": {
+    "url": "https://github.com/cansik/pointcloud-web-viewer/issues"
   },
+  "homepage": "https://github.com/cansik/pointcloud-web-viewer#readme",
   "devDependencies": {
-    "webpack": "4.16.2",
-    "webpack-dev-server": "3.1.5",
-    "webpack-cli": "3.1.0"
+    "gulp": "^4.0.0",
+    "gulp-typescript": "^5.0.1",
+    "typescript": "^3.5.3"
   }
 }

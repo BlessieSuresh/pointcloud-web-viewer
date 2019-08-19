@@ -1,4 +1,4 @@
-import {App} from "./app";
-
-// main function
-const app = new App();
+function hello(compiler: string) {
+    console.log(`Hello from ${compiler}`);
+}
+hello('TypeScript');
