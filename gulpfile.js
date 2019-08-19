@@ -10,14 +10,14 @@ var connect = require('gulp-connect');
 var clean = require('gulp-clean');
 
 var paths = {
-    pages: ['src/*.html'],
+    pages: ['./html/*.html', './html/**/*.html'],
     libs: [
         'libs/**/*.*'
     ],
     watch: {
     	typescript: ['./src/*.ts', './src/**/*.ts'],
-    	html: ['./src/*.html'],
-    	sass: ['./scss/*.scss'],
+    	html: ['./html/*.html', './html/**/*.html'],
+    	sass: ['./scss/*.scss', './scss/**/*.scss'],
     	others: ['assets/**/*.*', 'libs/**/*.*']
     },
     assets: [
@@ -27,17 +27,20 @@ var paths = {
 
 gulp.task('html', function () {
     return gulp.src(paths.pages)
-        .pipe(gulp.dest('dist'));
+        .pipe(gulp.dest('dist'))
+        .pipe(connect.reload());
 });
 
 gulp.task('libs', function () {
     return gulp.src(paths.libs)
-        .pipe(gulp.dest('./dist/libs'));
+        .pipe(gulp.dest('./dist/libs'))
+        .pipe(connect.reload());
 });
 
 gulp.task('assets', function () {
     return gulp.src(paths.assets)
-        .pipe(gulp.dest('./dist/assets'));
+        .pipe(gulp.dest('./dist/assets'))
+        .pipe(connect.reload());
 });
 
 gulp.task('sass', function(done) {
@@ -46,7 +49,8 @@ gulp.task('sass', function(done) {
             errLogToConsole: true
         }))
         .pipe(gulp.dest('./dist'))
-        .on('end', done);
+        .on('end', done)
+        .pipe(connect.reload());
 });
 
 gulp.task('compile', function () {
@@ -68,11 +72,12 @@ gulp.task('compile', function () {
 	    .pipe(sourcemaps.init({loadMaps: true}))
 	    .pipe(uglify())
 	    .pipe(sourcemaps.write('./'))
-        .pipe(gulp.dest('dist'));
+        .pipe(gulp.dest('dist'))
+        .pipe(connect.reload());
 });
 
 gulp.task('clean', function () {
-    return gulp.src('dist/**.*', {read: false})
+    return gulp.src('dist/*', {read: false})
     	.pipe(clean());
 });
 
