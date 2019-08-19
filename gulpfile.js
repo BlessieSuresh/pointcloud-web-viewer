@@ -7,6 +7,7 @@ var sourcemaps = require('gulp-sourcemaps');
 var buffer = require('vinyl-buffer');
 var sass = require('gulp-sass');
 var webserver = require('gulp-webserver');
+var clean = require('gulp-clean');
 
 var paths = {
     pages: ['src/*.html'],
@@ -70,6 +71,11 @@ gulp.task('compile', function () {
         .pipe(gulp.dest('dist'));
 });
 
+gulp.task('clean', function () {
+    return gulp.src('dist/**.*', {read: false})
+    	.pipe(clean());
+});
+
 gulp.task('webserver', function() {
   gulp.src('dist')
     .pipe(webserver({
@@ -86,6 +92,6 @@ gulp.task('watch', function() {
     gulp.watch(paths.watch.others, gulp.series('assets', 'libs'));
 });
 
-gulp.task('develop', gulp.series(gulp.parallel('watch', 'webserver')));
+gulp.task('develop', gulp.series('clean', gulp.parallel('watch', 'webserver')));
 
-gulp.task('default', gulp.series(gulp.parallel('html', 'libs', 'sass', 'assets', 'compile')));
+gulp.task('default', gulp.series('clean', gulp.parallel('html', 'libs', 'sass', 'assets', 'compile')));
