@@ -17,9 +17,11 @@
   },
   "homepage": "https://github.com/cansik/pointcloud-web-viewer#readme",
   "devDependencies": {
-    "babel-core": "^6.26.3",
-    "babel-preset-env": "^1.7.0",
-    "babelify": "^8.0.0",
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/plugin-transform-modules-commonjs": "^7.5.0",
+    "babelify": "^10.0.0",
     "browserify": "^16.5.0",
     "gulp": "^4.0.0",
     "gulp-clean": "^0.4.0",
@@ -34,6 +36,7 @@
     "vinyl-source-stream": "^2.0.0"
   },
   "dependencies": {
+    "@types/node": "^12.7.2",
     "three": "^0.107.0"
   }
 }

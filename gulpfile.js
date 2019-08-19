@@ -62,10 +62,17 @@ gulp.task('compile', function () {
         packageCache: {}
     })
         .plugin(tsify)
-       	.transform('babelify', {
-        	presets: ['env'],
-        	extensions: ['.ts']
-    	})
+        .transform('babelify', {
+                only: [
+                    "./node_modules/three/build/three.module.js",
+                    "./node_modules/three/examples/jsm/*"
+                ],
+                global: true,
+                sourceType: "unambiguous",
+                presets: ["@babel/preset-env"],
+                plugins: ['@babel/plugin-transform-modules-commonjs']
+            }
+        )
         .bundle()
         .pipe(source('bundle.js'))
         .pipe(buffer())
