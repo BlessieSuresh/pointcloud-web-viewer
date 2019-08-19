@@ -17,8 +17,11 @@
   },
   "homepage": "https://github.com/cansik/pointcloud-web-viewer#readme",
   "devDependencies": {
+    "browserify": "^16.5.0",
     "gulp": "^4.0.0",
     "gulp-typescript": "^5.0.1",
-    "typescript": "^3.5.3"
+    "tsify": "^4.0.1",
+    "typescript": "^3.5.3",
+    "vinyl-source-stream": "^2.0.0"
   }
 }
