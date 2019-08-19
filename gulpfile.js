@@ -56,7 +56,7 @@ gulp.task('sass', function(done) {
 gulp.task('compile', function () {
     return browserify({
         basedir: '.',
-        debug: false,
+        debug: true,
         entries: ['src/main.ts'],
         cache: {},
         packageCache: {}
